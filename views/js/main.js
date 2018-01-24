@@ -447,16 +447,20 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  // Iterates through pizza elements on the page and changes their widths
+//Changed this section based off suggestions from Udacity Office Hours https://github.com/udacity/fend-office-hours/blob/master/Web%20Optimization/Effective%20Optimizations%20for%2060%20FPS/main.js
+//Pulled out unneccesary calculations in the For loop
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+//set up PizzaElements as a variable to modify by class name ("randomPizzaContainer")
+    var pizzaElements = document.getElementsByClassName("randomPizzaContainer");
+//pull out the dx and newwidth variables from for loop to avoid unneccesary recalculations
+    var dx = determineDx(pizzaElements[0], size);
+    var newwidth = (pizzaElements[0].offsetWidth + dx) + 'px';
+//Iterate through the pizza elements to modify their widths
+    for (var i = 0, len = pizzaElements.length; i < len; i++) {
+      pizzaElements[i].style.width = newwidth;
     }
   }
-
-  changePizzaSizes(size);
+changePizzaSizes(size);
 
   // User Timing API is awesome
   window.performance.mark("mark_end_resize");
@@ -500,13 +504,13 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
-  var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    // document.body.scrollTop is no longer supported in Chrome.
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    var phase = Math.sin((scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+//set up items as a variable and call by class name
+var items = document.getElementsByClassName('mover');
+//remove variable scrollTop from loop to avoid unnecessary duplication in loop
+var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+for (var i = 0; i < items.length; i++) {
+  var phase = Math.sin((scrollTop / 1250) + (i % 5));
+  items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -526,7 +530,11 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+//calculate # of rows on page
+  var rows = Math.round(window.screen.height/s);
+//calulate the max amount of Pizzas to render based on Page Size
+  var bgPizzasCount = rows * cols;
+  for (var i = 0; i < bgPizzasCount; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";

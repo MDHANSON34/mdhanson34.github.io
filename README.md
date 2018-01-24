@@ -1,3 +1,5 @@
+View the webpage here>>  mdhanson34.github.io
+
 Goal: Optimize index.html to achieve a score of >90 on PageSpeedInsights
 
 #### Part 1: Optimize PageSpeed Insights score for index.html

@@ -3,6 +3,7 @@ Goal: Optimize index.html to achieve a score of >90 on PageSpeedInsights
 #### Part 1: Optimize PageSpeed Insights score for index.html
 
 Optimizations made to index.html:
+
 1)Resize and Compression of images
 2)Inline CSS style
 3)Used Minify techniques
@@ -12,6 +13,7 @@ Optimizations made to index.html:
 Goal: To optimize views/js/main.js until views/pizza.html frames per second rate is 60 fps or higher.
 
 Optimizations made to views/js/main.js:
+
 1)536-546
     Refined the number of pizzas rendered on the page to be set equal to a percentage of the page size rather than a default 200
 2)451-461
